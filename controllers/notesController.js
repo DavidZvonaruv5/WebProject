@@ -117,6 +117,7 @@ const deleteNote = asyncHandler(async (req, res) => {
     
 })
 
+//export all of the crud operations
 module.exports = {
     getAllNotes,
     createNewNote,

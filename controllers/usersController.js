@@ -94,30 +94,36 @@ const updateUser = asyncHandler(async (req,res) => {
 const deleteUser = asyncHandler(async (req,res) => {
     const {id} = req.body
     
+    //if no id 
     if(!id){
         return res.status(400).json({message: 'User id is required'})
     }
 
     const note = await Note.findOne({user: id}).lean().exec()
 
+    //if note has been found--> cannot delete user that has notes
     if(note){
         return res.status(400).json({message: 'User has aggigned notes'})
     }
 
+    //look for the user
     const user = await User.findById(id).exec()
     
+    //check if he is already been deleted
     if(!user){
         return res.status(400).json({message: 'User not found'})
     }
 
     const result = await user.deleteOne()
 
+    //display a message to the db that the user has been deleted
     const reply = `Username ${result.username} with ID ${result._id} has been deleted`
 
     res.json(reply)
 
 })
 
+//exort all of the crud operations
 module.exports = {
     getAllUsers,
     createNewUser,
