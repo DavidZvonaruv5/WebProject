@@ -7,20 +7,20 @@ const asyncHandler = require('express-async-handler')
 
 //Get all notes
 //GET
-const getAllNotes = asyncHandler(async (req,res) => {
-    //get all the notes from the DB
+const getAllNotes = asyncHandler(async (req, res) => {
+    // Get all notes from MongoDB
     const notes = await Note.find().lean()
 
-    //if there are no notes
-    if(!notes?.length){
-        return res.status(400).json({message: 'No notes found'})
+    // If there are no notes
+    if (!notes?.length) {
+        return res.status(400).json({ message: 'No notes found' })
     }
 
     //now we need to add a user to each note he created
     //we did that in the mongoDB, now we just have to get it and assign the note to gim
-    const notesWithUser = await Promise.all(notes.map(async (note)=>{
+    const notesWithUser = await Promise.all(notes.map(async (note) => {
         const user = await User.findById(note.user).lean().exec()
-        return {...note, username: user.username}
+        return { ...note, username: user.username }
     }))
 
     //now we can the note with the user that wrote the note
@@ -29,7 +29,7 @@ const getAllNotes = asyncHandler(async (req,res) => {
 
 //create a new Note
 //POST
-const createNewNote = asyncHandler(async (req,res) => {
+const createNewNote = asyncHandler(async (req, res) => {
     const { user, title, text } = req.body
 
     // Confirm data
@@ -44,7 +44,7 @@ const createNewNote = asyncHandler(async (req,res) => {
         return res.status(409).json({ message: 'Duplicate note title' })
     }
 
-    // Create and store the new note
+    // Create and store the new user 
     const note = await Note.create({ user, title, text })
 
     if (note) { // Created 
@@ -52,11 +52,12 @@ const createNewNote = asyncHandler(async (req,res) => {
     } else {
         return res.status(400).json({ message: 'Invalid note data received' })
     }
+
 })
 
 //update a note
 //PATCH
-const updateNote = asyncHandler(async (req,res) => {
+const updateNote = asyncHandler(async (req, res) => {
     const { id, user, title, text, completed } = req.body
 
     // Confirm data
@@ -92,7 +93,7 @@ const updateNote = asyncHandler(async (req,res) => {
 
 //delete a note
 //DELETE
-const deleteNote = asyncHandler(async (req,res) => {
+const deleteNote = asyncHandler(async (req, res) => {
     const { id } = req.body
 
     // Confirm data
@@ -113,7 +114,7 @@ const deleteNote = asyncHandler(async (req,res) => {
     const reply = `Note '${result.title}' with ID ${result._id} deleted`
 
     res.json(reply)
-
+    
 })
 
 module.exports = {

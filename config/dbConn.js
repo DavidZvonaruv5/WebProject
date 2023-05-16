@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-
+//this is the connection to the DB, usoing the DATABASE_URI mongoDB has provided
 const connectDB = async () => {
-    try{
+    try {
         await mongoose.connect(process.env.DATABASE_URI)
-    }catch(err){
-        console.error(err)
+    } catch (err) {
+        console.log(err)
     }
 }
 
