@@ -32,6 +32,7 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 
 //make all routes paths 
 app.use('/', require('./routes/root'))
+app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/notes', require('./routes/noteRoutes'))
 
