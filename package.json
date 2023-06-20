@@ -1,5 +1,5 @@
 {
-  "name": "mernproject",
+  "name": "webcoursebackend",
   "version": "1.0.0",
   "description": "small mern Project",
   "main": "server.js",
