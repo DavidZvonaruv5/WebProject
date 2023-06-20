@@ -22,7 +22,7 @@ const createNewUser = asyncHandler(async (req,res) => {
     const {username,password,roles} = req.body
 
     //check the data
-    if(!username || !password || !Array.isArray(roles) || !roles.length){
+    if(!username || !password){
         return res.status(400).json({message: 'All fields are required'})
     }
 
@@ -40,7 +40,7 @@ const createNewUser = asyncHandler(async (req,res) => {
     //The password hashing is done with 10 salt rounds
     //A salt round is basically how much time is needed to crack the hashed password.
     //The bigger the salt round, the more time it takes to un-hash the passowrd
-    const userObject = {username, "password": hashedPwd, roles}
+    const userObject = (!Array.isArray(roles) ||!roles.length ? {username, "password": hashedPwd} : {username, "password": hashedPwd, roles})
     //now create and store the user in the DB
     const user = await User.create(userObject)
 
