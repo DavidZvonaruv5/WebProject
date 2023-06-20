@@ -26,8 +26,8 @@ const createNewUser = asyncHandler(async (req,res) => {
         return res.status(400).json({message: 'All fields are required'})
     }
 
-    //check duplicate
-    const duplicate = await User.findOne({username}).lean().exec()
+    //check duplicate with case sensitivity(strength 2) 
+    const duplicate = await User.findOne({ username }).collation({locale: 'en', strength: 2}).lean().exec()
     //if your using async await you need to use exec() in order to fulfill the promise --> This is from stackOverflow (after a long search)
 
     if(duplicate){
@@ -68,8 +68,8 @@ const updateUser = asyncHandler(async (req,res) => {
         return res.status(400).json({message: 'User not found'})
     }
 
-    //check for duplicate
-    const duplicate = await User.findOne({ username }).lean().exec()
+    //check for duplicate with case sensitivity
+    const duplicate = await User.findOne({ username }).collation({locale: 'en', strength: 2}).lean().exec()
 
     //allow updates to the original user
     if(duplicate && duplicate?._id.toString() !== id){
