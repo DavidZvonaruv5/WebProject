@@ -40,6 +40,9 @@ In our Database, using MongoDB we save 2 schemas, a user scheme and a note schem
 
 3 controllers are used to control various HTTP requests in our server, interact with cookies and make requests to the database.
 
+The .env file contains all of information for the database access, access tokens and refresh tokens we use.
+
+
 
 
 ## Authors
