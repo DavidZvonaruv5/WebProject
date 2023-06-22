@@ -61,6 +61,7 @@ const login = asyncHandler(async (req, res) => {
 const refresh = (req, res) => {
     const cookies = req.cookies
 
+    // If no refresh token cookie is present, return unauthorized message
     if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
 
     const refreshToken = cookies.jwt
@@ -75,6 +76,7 @@ const refresh = (req, res) => {
 
             if (!foundUser) return res.status(401).json({ message: 'Unauthorized' })
 
+            // Generate a new access token
             const accessToken = jwt.sign(
                 {
                     "UserInfo": {
@@ -95,6 +97,7 @@ const refresh = (req, res) => {
 const logout = (req, res) => {
     const cookies = req.cookies
     if (!cookies?.jwt) return res.sendStatus(204) //No content
+    // Clear the refresh token cookie
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
     res.json({ message: 'Cookie cleared' })
 }
