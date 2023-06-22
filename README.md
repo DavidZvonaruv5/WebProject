@@ -28,6 +28,20 @@ Once logged in, you can view notes, assign notes, and type in the chat. If you'r
 
 TaskFlow is a MERN stack project. It uses MongoDB, Express.js, React, and Node.js. The live chat feature is implemented using a real-time database in Firebase.
 
+### Other technologies
+
+We have also implemented a logs system, where each request to the Database will be logged, Errors and execeptions will be logged in a seperate file. We implemented these logs via the file system in JS.
+
+We have defined cors options for our backend, limiting the sites that get make requests to our site, we have also defined allowedOrigins which only these urls will be able to make requests to the site.
+
+We made use of a routes system so that the routes will be displayed and mean something in our project.
+
+In our Database, using MongoDB we save 2 schemas, a user scheme and a note schema.
+
+3 controllers are used to control various HTTP requests in our server, interact with cookies and make requests to the database.
+
+
+
 ## Authors
 
 * **David Zvonaruv**
