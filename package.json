@@ -1,7 +1,7 @@
 {
   "name": "webcoursebackend",
   "version": "1.0.0",
-  "description": "small mern Project",
+  "description": "Project for our Web course",
   "main": "server.js",
   "scripts": {
     "start": "node server",
