@@ -14,6 +14,8 @@ Frontend: [https://github.com/DavidZvonaruv5/WebProjectFrontEnd](https://github.
 
 After cloning, open each repository in a separate instance of VSCode. Download the provided .env file and place it in the main directory of the backend project. 
 
+install the dependencies: `npm install`    
+
 To start the application, run `npm start` in both repositories.
 
 ## Usage
